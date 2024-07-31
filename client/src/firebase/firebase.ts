@@ -6,7 +6,7 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCEfLAhBPltcTfbZnKCjKw7D9Nn2HnNZu4",
+  apiKey: "",
   authDomain: "chatai-76a5f.firebaseapp.com",
   projectId: "chatai-76a5f",
   storageBucket: "chatai-76a5f.appspot.com",
