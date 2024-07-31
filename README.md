@@ -5,3 +5,4 @@ Project created with:
 * node.js with express.js for backend
 * mongodb for database
 * firebase for auth
+* gemini api for ai tools
