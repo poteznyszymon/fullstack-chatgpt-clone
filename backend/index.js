@@ -11,6 +11,8 @@ app.use(cors());
 
 const CONNECTION_STRING = "mongodb+srv://szymonfularczyk:szymon123@cluster0.ztwisz4.mongodb.net/chatai?retryWrites=true&w=majority&appName=Cluster0";
 
+mongoose.set('strictQuery', false);
+
 const connect = async () => {
   try {
     await mongoose.connect(CONNECTION_STRING);
