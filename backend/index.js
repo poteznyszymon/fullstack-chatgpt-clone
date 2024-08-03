@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const CONNECTION_STRING = process.env.CONNECTION_STRING;
+const CONNECTION_STRING = "mongodb+srv://szymonfularczyk:szymon123@cluster0.ztwisz4.mongodb.net/chatai?retryWrites=true&w=majority&appName=Cluster0";
 
 const connect = async () => {
   try {
