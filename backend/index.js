@@ -14,7 +14,7 @@ const CONNECTION_STRING = "mongodb+srv://szymonfularczyk:szymon123@cluster0.ztwi
 const connect = async () => {
   try {
     await mongoose.connect(CONNECTION_STRING);
-    console.log("connected successfully");
+    console.log("database connected successfully");
   } catch (error) {
     console.log(error);
   }
@@ -22,7 +22,7 @@ const connect = async () => {
 
 
 app.get("/", (req, res) => {
-  res.json("Hello vercel!");
+  res.send("Hello vercel!");
 })
 
 app.post("/add-chat", async (req, res) => {
@@ -104,8 +104,8 @@ app.put("/change-title/:chatId/:newTitle", async (req, res) => {
 const startServer = async () => {
   try {
     await connect();
-    app.listen();
-    console.log('Server is running');
+    app.listen(port);
+    console.log(`Server is running on ${port}`);
   } catch (error) {
     console.error('Error starting server:', error);
     process.exit(1);
