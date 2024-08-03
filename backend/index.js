@@ -103,7 +103,7 @@ app.put("/change-title/:chatId/:newTitle", async (req, res) => {
 
 const startServer = async () => {
   await connect();
-  app.listen(port);
+  app.listen();
 };
 
 startServer();
