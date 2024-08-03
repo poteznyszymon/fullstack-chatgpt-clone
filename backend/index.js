@@ -102,8 +102,14 @@ app.put("/change-title/:chatId/:newTitle", async (req, res) => {
 });
 
 const startServer = async () => {
-  await connect();
-  app.listen();
+  try {
+    await connect();
+    app.listen();
+    console.log('Server is running');
+  } catch (error) {
+    console.error('Error starting server:', error);
+    process.exit(1);
+  }
 };
 
 startServer();
