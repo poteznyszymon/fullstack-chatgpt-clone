@@ -4,7 +4,6 @@ import cors from "cors";
 import { Chat } from "./models/chatSchema.js";
 import { Message } from "./models/messageSchema.js";
 
-const port = 3000;
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -20,10 +19,14 @@ const connect = async () => {
   }
 };
 
-app.listen(port, () => {
+app.listen(() => {
   connect();
   console.log(`server running on ${port}`);
 });
+
+app.get("/", (req, res) => {
+  res.json("Hello");
+})
 
 app.post("/add-chat", async (req, res) => {
   try {
@@ -100,6 +103,3 @@ app.put("/change-title/:chatId/:newTitle", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
-
-
-
