@@ -6,9 +6,8 @@ function App() {
       <h1 className="text-white">
         <TypeAnimation
           sequence={[
-            // Same substring at the start will only be typed out once, initially
             "Help me debug why the linked list appears empty after I've reversed it",
-            1000, // wait 1s before replacing "Mice" with "Hamsters"
+            1000,
             "Give me ideas for a customer loyalty program in a small bookstore",
             1000,
             "Brainstorm names for an orange cat we're adopting from the shelter",

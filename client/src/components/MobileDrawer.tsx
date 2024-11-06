@@ -36,7 +36,7 @@ const MobileDrawer = ({
   }, [user]);
 
   const fetchChats = async (uid: string) => {
-    const response = await fetch(`http://localhost:3000/get-chats/${uid}`);
+    const response = await fetch(`http://localhost:5000/get-chats/${uid}`);
     const data = await response.json();
     data.sort(
       (a: ChatModel, b: ChatModel) =>
@@ -47,7 +47,7 @@ const MobileDrawer = ({
 
   const createChat = async (userId: string) => {
     try {
-      const response = await fetch("http://localhost:3000/add-chat", {
+      const response = await fetch("http://localhost:5000/add-chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +86,7 @@ const MobileDrawer = ({
   const deleteChat = async (_id: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/delete-chat/${_id}`, {
+      const response = await fetch(`http://localhost:5000/delete-chat/${_id}`, {
         method: "DELETE",
       });
 

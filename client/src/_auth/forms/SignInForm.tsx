@@ -63,7 +63,7 @@ const SignInForm = () => {
               Login to your account
             </h2>
             <p className="text-gray-500 text-sm">
-              To use ChatAI please enter your details
+              To use please enter your details
             </p>
           </section>
 
@@ -140,7 +140,7 @@ const SignInForm = () => {
               Don't have an account?
               <Link
                 to="/sign-up"
-                className="text-purple-500 text-small-semibold ml-1 "
+                className="text-purple-500 text-small-semibold ml-1 hover:underline"
               >
                 Register
               </Link>

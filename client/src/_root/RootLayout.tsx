@@ -1,7 +1,7 @@
 import { Toaster } from "../components/ui/toaster";
 import { ThemeProvider } from "../components/ThemeProvider";
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Drawer from "../components/Drawer";
 import MobileDrawer from "../components/MobileDrawer";
@@ -9,6 +9,7 @@ const RootLayout = () => {
   const [showDrawer, setShowDrawer] = useState(true);
   const [newTitle, setNewTitle] = useState("");
   const [openMobileDrawer, setOpenMobileDrawer] = useState(false);
+  const location = useLocation();
 
   const drawerClick = () => {
     setShowDrawer(!showDrawer);
@@ -37,12 +38,14 @@ const RootLayout = () => {
           }`}
         >
           <NavBar
-          
             handleDrawerClick={drawerClick}
             handleMobileDrawerCLick={mobileDrawerClick}
             showDrawerIcon={!showDrawer}
           />
           <section className="flex-grow bg-main-gray flex  justify-center items-center">
+            {location.pathname === "/home" && (
+              <p className="font-semibold">Create new chat at the top left</p>
+            )}
             <Outlet context={[setNewTitle]} />
           </section>
         </main>

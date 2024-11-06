@@ -44,6 +44,7 @@ const NavBar = ({
       <div className="flex items-center text-gray-text gap-5">
         {showDrawerIcon && (
           <FiLayout
+            title="Show menu"
             size={24}
             className="cursor-pointer hidden lg:block hover:text-gray-300"
             onClick={handleDrawerClick}

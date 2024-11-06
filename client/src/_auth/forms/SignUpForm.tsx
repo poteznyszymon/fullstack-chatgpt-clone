@@ -76,24 +76,6 @@ const SignUpForm = () => {
           >
             <FormField
               control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-white">
-                    Username<span className="text-red-600 pl-1">*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      className="h-10 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-xs text-red-600" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
@@ -161,7 +143,7 @@ const SignUpForm = () => {
               Already have an account?
               <Link
                 to="/sign-in"
-                className="text-purple-500 text-small-semibold ml-1"
+                className="text-purple-500 text-small-semibold ml-1 hover:underline"
               >
                 Log in
               </Link>

@@ -32,7 +32,7 @@ const Drawer = ({ handleClick, showDrawer, newTitle }: DrawerProps) => {
   }, [newTitle, user]);
 
   const fetchChats = async (uid: string) => {
-    const response = await fetch(`http://localhost:3000/get-chats/${uid}`);
+    const response = await fetch(`http://localhost:5000/get-chats/${uid}`);
     const data = await response.json();
     data.sort(
       (a: ChatModel, b: ChatModel) =>
@@ -43,7 +43,7 @@ const Drawer = ({ handleClick, showDrawer, newTitle }: DrawerProps) => {
 
   const createChat = async (userId: string) => {
     try {
-      const response = await fetch("http://localhost:3000/add-chat", {
+      const response = await fetch("http://localhost:5000/add-chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const Drawer = ({ handleClick, showDrawer, newTitle }: DrawerProps) => {
   const deleteChat = async (_id: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/delete-chat/${_id}`, {
+      const response = await fetch(`http://localhost:5000/delete-chat/${_id}`, {
         method: "DELETE",
       });
 
@@ -116,11 +116,13 @@ const Drawer = ({ handleClick, showDrawer, newTitle }: DrawerProps) => {
       <div className="w-screen h-full flex flex-col">
         <nav className="flex justify-between mb-5">
           <FiLayout
+            title="Hide menu"
             size={24}
             className="cursor-pointer text-gray-text hover:text-gray-300"
             onClick={handleClick}
           />
           <BiEdit
+            title="Create new chat"
             size={26}
             className="cursor-pointer text-gray-text hover:text-gray-300"
             onClick={() => createChat(user?.uid || "")}

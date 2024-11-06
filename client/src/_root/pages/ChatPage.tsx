@@ -1,5 +1,4 @@
 import { useOutletContext, useParams } from "react-router-dom";
-import { FaPaperclip } from "react-icons/fa6";
 import { FaArrowUp } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -54,7 +53,7 @@ const ChatPage = () => {
   const fetchMessages = async (chatId: string) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/get-messages/${chatId}`
+        `http://localhost:5000/get-messages/${chatId}`
       );
       const data = await response.json();
       setMessages(data);
@@ -68,7 +67,7 @@ const ChatPage = () => {
     try {
       const encodedContent = encodeURIComponent(content);
       const response = await fetch(
-        `http://localhost:3000/add-message/${user?.uid}/${chatId}/${encodedContent}/${sender}`,
+        `http://localhost:5000/add-message/${user?.uid}/${chatId}/${encodedContent}/${sender}`,
         {
           method: "POST",
         }
@@ -88,7 +87,7 @@ const ChatPage = () => {
   const changeTitle = async (chatId: string, newTitle: string) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/change-title/${chatId}/${newTitle}`,
+        `http://localhost:5000/change-title/${chatId}/${newTitle}`,
         {
           method: "PUT",
         }
@@ -115,7 +114,10 @@ const ChatPage = () => {
               {item.content}
             </div>
           ) : (
-            <Markdown key={item._id} className="self-start">
+            <Markdown
+              key={item._id}
+              className="self-start lg:w-full w-96 md:w-full"
+            >
               {item.content}
             </Markdown>
           )
@@ -126,12 +128,11 @@ const ChatPage = () => {
         <form onSubmit={handleSubmit} className="w-full max-w-[750px]">
           <div className="bg-menu-gray w-full h-[50px] rounded-3xl flex items-center justify-between px-[10px] mt-[10px]">
             <div className="flex items-center gap-4 flex-1 pr-3">
-              <FaPaperclip size={20} className="ml-2 cursor-pointer" />
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 type="text"
-                className="bg-transparent border-none placeholder:text-placeholder-gray grow outline-none"
+                className="bg-transparent pl-5 border-none placeholder:text-placeholder-gray grow outline-none"
                 placeholder="Message ChatAI"
               />
             </div>

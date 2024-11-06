@@ -63,6 +63,7 @@ const DrawerItem = ({
             <Dialog onOpenChange={() => setHoverState(false)}>
               <DialogTrigger asChild>
                 <FaTrashAlt
+                title="Delete chat"
                   size={15}
                   className={`hover:text-white pr-1 ${
                     hoverState || isMobile ? "block" : "hidden"
