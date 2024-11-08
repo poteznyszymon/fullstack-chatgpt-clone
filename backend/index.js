@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 
 dotenv.config();
 
-const port = 5000;
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 app.use("/api", authRoute);
 
-app.listen(port, () => {
-  console.log(`Server running on port: ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port: ${PORT}`);
   connectToMongo();
 });
