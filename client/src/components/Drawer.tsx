@@ -1,7 +1,5 @@
 import { FiLayout } from "react-icons/fi";
 import { BiEdit } from "react-icons/bi";
-import { auth } from "../firebase/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "./ui/use-toast";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";

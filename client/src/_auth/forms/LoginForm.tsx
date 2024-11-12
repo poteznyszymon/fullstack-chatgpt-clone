@@ -16,7 +16,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
-import { loginUser } from "../../firebase/firebase";
 import { toast } from "../../components/ui/use-toast";
 
 const formSchema = z.object({
@@ -26,7 +25,7 @@ const formSchema = z.object({
     .min(6, { message: "Password must be at least 6 characters" }),
 });
 
-const SignInForm = () => {
+const LoginForm = () => {
   const [hidePassword, setHidePassword] = useState(true);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +41,8 @@ const SignInForm = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-      await loginUser(values.email, values.password);
+      //await loginUser(values.email, values.password);
+      console.log(values);
       toast({ title: "User logged successfully" });
       setIsLoading(false);
       navigate("/home");
@@ -139,7 +139,7 @@ const SignInForm = () => {
             <p className="text-xs text-gray-400 text-center mt-2">
               Don't have an account?
               <Link
-                to="/sign-up"
+                to="/register"
                 className="text-purple-500 text-small-semibold ml-1 hover:underline"
               >
                 Register
@@ -152,4 +152,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default LoginForm;

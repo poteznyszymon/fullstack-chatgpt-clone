@@ -1,8 +1,5 @@
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Avatar, AvatarFallback } from "./ui/avatar";
-import { auth } from "../firebase/firebase";
 import { MdOutlineLogout } from "react-icons/md";
-import { toast } from "../components/ui/use-toast";
 import { MdMenu } from "react-icons/md";
 import { FiLayout } from "react-icons/fi";
 
@@ -25,20 +22,6 @@ const NavBar = ({
   showDrawerIcon,
   handleMobileDrawerCLick,
 }: NavBarProps) => {
-  const [user] = useAuthState(auth);
-
-  const handleLogout = async () => {
-    try {
-      await auth.signOut();
-      toast({ title: "User logged out successfully" });
-    } catch (error) {
-      toast({
-        title: "Something went wrong, try again",
-        variant: "destructive",
-      });
-    }
-  };
-
   return (
     <nav className="h-[48px] bg-main-gray w-full flex justify-between px-4 py-3 transition-all duration-500 fixed ">
       <div className="flex items-center text-gray-text gap-5">
@@ -60,16 +43,14 @@ const NavBar = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar className="w-6 h-6 md:h-8 md:w-8 text-xs hover:border-2 border-gray-700 cursor-pointer fixed right-4 top-3">
-            <AvatarFallback>
-              {user?.email?.slice(0, 2).toUpperCase()}
-            </AvatarFallback>
+            <AvatarFallback>{""}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mr-5 mt-2">
-          <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
+          <DropdownMenuLabel>{""}</DropdownMenuLabel>
           <DropdownMenuItem
             className="flex items-center gap-1"
-            onClick={handleLogout}
+            onClick={() => {}}
           >
             <MdOutlineLogout size={15} />
             Logout

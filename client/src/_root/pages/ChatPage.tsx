@@ -1,8 +1,6 @@
 import { useOutletContext, useParams } from "react-router-dom";
 import { FaArrowUp } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase/firebase";
 import { MessageModel } from "../../models/models";
 import model from "../../gemini/gemini";
 import Markdown from "react-markdown";
@@ -11,7 +9,7 @@ type SetNewTitleContextType = [(newTitle: string) => void];
 
 const ChatPage = () => {
   const { id: chatId } = useParams();
-  const [user] = useAuthState(auth);
+  const user = false;
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<MessageModel[]>([]);
   const [loadingResponse, setLoadingResponse] = useState(false);
