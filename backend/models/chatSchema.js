@@ -1,12 +1,23 @@
 import mongoose from "mongoose";
 
-const chatSchema = new mongoose.Schema({
-    userId: { type: String, required: true },
-    title: { type: String, default: "Ask a question" },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
-}, { collection: 'chats' });
+const chatSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      default: "Ask a question",
+    },
+    messages: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Message",
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
-const Chat = mongoose.model("Chat", chatSchema);
-
-export { Chat };
+export const Chat = mongoose.model("Chat", chatSchema);

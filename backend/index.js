@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import authRoute from "./routes/auth.route.js";
+import chatsRoute from "./routes/chats.route.js";
+
 import { connectToMongo } from "./mongo/connectToDatabase.js";
 import cookieParser from "cookie-parser";
 
@@ -17,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api", authRoute);
+app.use("/api/chats", chatsRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
