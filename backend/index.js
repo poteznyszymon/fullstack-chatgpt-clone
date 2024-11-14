@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import authRoute from "./routes/auth.route.js";
 import chatsRoute from "./routes/chats.route.js";
+import messagesRoute from "./routes/messages.route.js";
 
 import { connectToMongo } from "./mongo/connectToDatabase.js";
 import cookieParser from "cookie-parser";
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 app.use("/api", authRoute);
 app.use("/api/chats", chatsRoute);
+app.use("/api/messages", messagesRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
