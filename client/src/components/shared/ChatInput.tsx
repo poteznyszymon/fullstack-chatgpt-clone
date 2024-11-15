@@ -4,11 +4,21 @@ interface ChatInputProps {
   userInput: string;
   setUserInput: React.Dispatch<React.SetStateAction<string>>;
   isLoading: boolean;
+  onClick: () => void;
 }
 
-const ChatInput = ({ userInput, setUserInput, isLoading }: ChatInputProps) => {
+const ChatInput = ({
+  userInput,
+  setUserInput,
+  isLoading,
+  onClick,
+}: ChatInputProps) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onClick();
+  };
   return (
-    <form onSubmit={() => {}} className="w-full max-w-[750px]">
+    <form onSubmit={handleSubmit} className="w-full max-w-[750px]">
       <div className="bg-menu-gray w-full h-[50px] rounded-3xl flex items-center justify-between px-[10px] mt-[10px]">
         <div className="flex items-center gap-4 flex-1 pr-3">
           <input

@@ -1,10 +1,12 @@
 import { useToast } from "@/components/ui/use-toast";
 import { Chat } from "@/lib/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const useAddChat = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { mutate: addChat, isPending } = useMutation({
     mutationFn: async () => {
@@ -26,6 +28,8 @@ const useAddChat = () => {
         if (!oldChats) return;
         return [newChat, ...oldChats];
       });
+
+      navigate(`/${newChat._id}`);
     },
     onError: () => {
       toast({ description: "Something went wrong. Please try again" });

@@ -48,7 +48,7 @@ export const sendMessage = async (req, res) => {
   chat.messages.push(userMessage._id, botMessage._id);
   await chat.save();
 
-  res.status(200).json({ success: true, response: resultText });
+  res.status(200).json({ success: true, response: botMessage });
 
   try {
   } catch (error) {
@@ -73,7 +73,7 @@ export const getAllMessages = async (req, res) => {
       return res.status(400).json({ success: false, error: "Chat not found" });
     }
 
-    const messages = await Message.find({ chatId });
+    const messages = await Message.find({ chatId }).sort({ createdAt: 1 });
 
     return res.status(200).json({ success: true, messages: messages });
   } catch (error) {

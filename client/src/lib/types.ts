@@ -3,7 +3,7 @@ export interface Message {
   userId: string;
   chatId: string;
   content: string;
-  sender: string;
+  sender: "user" | "bot";
   createdAt: string;
 }
 

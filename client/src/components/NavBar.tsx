@@ -33,13 +33,11 @@ const NavBar = ({
       <div className="flex items-center text-gray-text gap-5 pt-2">
         {showDrawerIcon && (
           <div
+            onClick={handleDrawerClick}
             title="Show menu"
             className="p-2 hover:bg-secondary rounded-md group cursor-pointer"
           >
-            <FiLayout
-              className="size-6 hidden lg:block group-hover:text-gray-300"
-              onClick={handleDrawerClick}
-            />
+            <FiLayout className="size-6 hidden lg:block group-hover:text-gray-300" />
           </div>
         )}
         <MdMenu
@@ -54,7 +52,7 @@ const NavBar = ({
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Avatar className="size-8 text-xs hover:scale-105 cursor-pointer fixed right-4 top-3">
+          <Avatar className="size-8 text-xs hover:scale-105 cursor-pointer fixed right-5 top-4">
             <AvatarFallback>{user?.displayName.slice(0, 2)}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
