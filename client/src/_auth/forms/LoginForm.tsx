@@ -1,8 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../../components/ui/button";
+import { Link } from "react-router-dom";
 import { FaLock } from "react-icons/fa";
 import { FaUnlock } from "react-icons/fa";
-
 import {
   Form,
   FormControl,
@@ -16,7 +14,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
-import { toast } from "../../components/ui/use-toast";
+import useLoginUser from "@/hooks/auth/useLoginUser";
+import LoadingButton from "@/components/shared/LoadingButton";
+import { loginValues } from "@/lib/validation";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -26,9 +26,8 @@ const formSchema = z.object({
 });
 
 const LoginForm = () => {
+  const { login, isPending } = useLoginUser();
   const [hidePassword, setHidePassword] = useState(true);
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,22 +37,10 @@ const LoginForm = () => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true);
-    try {
-      //await loginUser(values.email, values.password);
-      console.log(values);
-      toast({ title: "User logged successfully" });
-      setIsLoading(false);
-      navigate("/home");
-    } catch (error) {
-      toast({
-        title: "Something went wrong, try again",
-        variant: "destructive",
-      });
-      setIsLoading(false);
-    }
-  }
+  const onSubmit = (values: loginValues) => {
+    login(values);
+  };
+
   return (
     <div className="bg-black h-screen flex flex-col justify-center items-center">
       <Form {...form}>
@@ -127,15 +114,12 @@ const LoginForm = () => {
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
+            <LoadingButton
               className="w-full bg-purple-500 hover:bg-purple-500/80 h-10 text-white"
+              loading={isPending}
             >
               Login
-              {isLoading && (
-                <img src="/loading-icon-white.svg" className="w-5 h-5 ml-1" />
-              )}
-            </Button>
+            </LoadingButton>
             <p className="text-xs text-gray-400 text-center mt-2">
               Don't have an account?
               <Link

@@ -4,8 +4,8 @@ import { generateAndSetCookie } from "../utils/generateCookie.js";
 
 export const registerUser = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-    if (!username || !email || !password)
+    const { displayName, email, password } = req.body;
+    if (!displayName || !email || !password)
       return res.status(400).json({
         success: false,
         error: "username, email or password not provieded",
@@ -20,7 +20,7 @@ export const registerUser = async (req, res) => {
     const hashedPassword = await bycrypt.hash(password, 10);
 
     const user = new User({
-      displayName: username,
+      displayName: displayName,
       email,
       password: hashedPassword,
     });
@@ -31,7 +31,7 @@ export const registerUser = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "User created successfully",
-      user: user.username,
+      user: user.displayName,
     });
   } catch (error) {
     console.log(error);

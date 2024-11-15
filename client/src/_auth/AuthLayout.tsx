@@ -8,7 +8,7 @@ import { ThemeProvider } from "../components/ThemeProvider";
 const AuthLayout = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <main className="h-screen text-white flex font-inter">
+      <main className="h-screen text-white flex">
         <section className=" bg-dark-navy w-full hidden sm:flex sm:flex-col lg:w-2/3">
           <nav className=" text-main-purple px-8 py-6 text-2xl font-semibold">
             <Link to={"/login"} className=" flex items-center gap-1">

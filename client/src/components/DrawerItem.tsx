@@ -12,39 +12,25 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
-import ChatModel from "@/models/models";
+import { Chat } from "@/lib/types";
 
 interface DrawerItemProps {
-  item: ChatModel;
+  item: Chat;
   isLoading: boolean;
-  handleDelete: (_id: string) => void;
-  newTitle: string;
-  isMobile?: boolean;
-  handleClick?: () => void;
 }
 
-const DrawerItem = ({
-  item,
-  handleDelete,
-  isLoading,
-  handleClick,
-  isMobile,
-}: DrawerItemProps) => {
+const DrawerItem = ({ item, isLoading }: DrawerItemProps) => {
   const { id } = useParams();
   const handleIconClick = (e: React.MouseEvent, _id: string) => {
     e.preventDefault();
     e.stopPropagation();
-    handleDelete(_id);
+    console.log(_id);
   };
 
   const [hoverState, setHoverState] = useState(false);
 
   return (
-    <Link
-      to={`/home/${item._id}`}
-      className="block w-full"
-      onClick={handleClick ? handleClick : () => {}}
-    >
+    <Link to={`/${item._id}`} className="block w-full" onClick={() => {}}>
       <div
         className={`hover:bg-main-gray rounded-md py-2 pl-2 cursor-pointer text-drawer-item-text ${
           item._id === id ? "bg-main-gray" : ""
@@ -63,10 +49,10 @@ const DrawerItem = ({
             <Dialog onOpenChange={() => setHoverState(false)}>
               <DialogTrigger asChild>
                 <FaTrashAlt
-                title="Delete chat"
+                  title="Delete chat"
                   size={15}
                   className={`hover:text-white pr-1 ${
-                    hoverState || isMobile ? "block" : "hidden"
+                    hoverState ? "block" : "hidden"
                   }`}
                 />
               </DialogTrigger>

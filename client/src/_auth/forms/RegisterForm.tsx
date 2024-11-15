@@ -14,9 +14,11 @@ import { useState } from "react";
 import { FaLock, FaUnlock } from "react-icons/fa";
 import { registerSchema, registerValues } from "@/lib/validation";
 import LoadingButton from "@/components/shared/LoadingButton";
+import useRegisterUser from "@/hooks/auth/useRegisterUser";
 
 const RegisterForm = () => {
   const [hidePassword, setHidePassword] = useState(true);
+  const { isPending, register } = useRegisterUser();
 
   const form = useForm<registerValues>({
     resolver: zodResolver(registerSchema),
@@ -28,7 +30,7 @@ const RegisterForm = () => {
   });
 
   const onSubmit = (values: registerValues) => {
-    console.log(values);
+    register(values);
   };
 
   return (
@@ -124,7 +126,7 @@ const RegisterForm = () => {
               )}
             />
             <LoadingButton
-              loading={false}
+              loading={isPending}
               className="w-full bg-purple-500 hover:bg-purple-500/80 h-10 text-white"
             >
               Register
@@ -133,7 +135,7 @@ const RegisterForm = () => {
               Already have an account?
               <Link
                 to="/login"
-                className="text-purple-500 text-small-semibold ml-1 hover:underline cursor-not-allowed"
+                className="text-purple-500 text-small-semibold ml-1 hover:underline"
               >
                 Log in
               </Link>
