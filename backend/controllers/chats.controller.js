@@ -64,7 +64,7 @@ export const getAllChats = async (req, res) => {
       return res.status(404).json({ success: false, error: "User not found" });
     }
 
-    const chats = await Chat.find({ userId });
+    const chats = await Chat.find({ userId }).sort({ createdAt: -1 });
 
     return res.status(200).json({ success: true, chats: chats });
   } catch (error) {

@@ -4,6 +4,7 @@ import DrawerItem from "./DrawerItem";
 import { Loader2 } from "lucide-react";
 import useGetAllChats from "@/hooks/chats/useGetAllChats";
 import LoadingButton from "./shared/LoadingButton";
+import useAddChat from "@/hooks/chats/useAddChat";
 
 interface DrawerProps {
   handleClick: () => void;
@@ -13,6 +14,7 @@ interface DrawerProps {
 const Drawer = ({ handleClick, showDrawer }: DrawerProps) => {
   const { chats, isFetching, isRefetching, isError, refetch } =
     useGetAllChats();
+  const { addChat, isPending: isAddingChatLoading } = useAddChat();
 
   return (
     <section
@@ -32,18 +34,21 @@ const Drawer = ({ handleClick, showDrawer }: DrawerProps) => {
           <div
             title="Create new chat"
             className="hover:bg-secondary/80 p-2 group rounded-md cursor-pointer"
-            onClick={() => {}}
+            onClick={() => addChat()}
           >
-            <BiEdit className="size-6 text-gray-text group-hover:text-gray-300" />
+            {!isAddingChatLoading && (
+              <BiEdit className="size-6 text-gray-text group-hover:text-gray-300" />
+            )}
+            {isAddingChatLoading && (
+              <Loader2 className="size-6 animate-spin text-gray-text" />
+            )}
           </div>
         </nav>
         <div className="flex-1">
           {!isFetching &&
             !isRefetching &&
             chats &&
-            chats.map((item) => (
-              <DrawerItem key={item._id} item={item} isLoading={isFetching} />
-            ))}
+            chats.map((item) => <DrawerItem key={item._id} item={item} />)}
           {isFetching && !isRefetching && (
             <Loader2 className="mx-auto animate-spin" />
           )}

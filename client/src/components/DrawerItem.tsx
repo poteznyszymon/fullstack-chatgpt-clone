@@ -13,27 +13,32 @@ import {
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Chat } from "@/lib/types";
+import { Loader2 } from "lucide-react";
+import useDeleteChat from "@/hooks/chats/useDeleteChat";
 
 interface DrawerItemProps {
   item: Chat;
-  isLoading: boolean;
 }
 
-const DrawerItem = ({ item, isLoading }: DrawerItemProps) => {
-  const { id } = useParams();
-  const handleIconClick = (e: React.MouseEvent, _id: string) => {
+const DrawerItem = ({ item }: DrawerItemProps) => {
+  const { chatId } = useParams();
+  console.log(chatId);
+  const { deleteChat, isPending: isLoading } = useDeleteChat();
+  const handleIconClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(_id);
+    deleteChat(item._id);
+    setIsDialogOpen(false);
   };
 
   const [hoverState, setHoverState] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
     <Link to={`/${item._id}`} className="block w-full" onClick={() => {}}>
       <div
         className={`hover:bg-main-gray rounded-md py-2 pl-2 cursor-pointer text-drawer-item-text ${
-          item._id === id ? "bg-main-gray" : ""
+          item._id === chatId ? "bg-main-gray" : ""
         }`}
         onMouseEnter={() => setHoverState(true)}
         onMouseLeave={() => setHoverState(false)}
@@ -46,7 +51,13 @@ const DrawerItem = ({ item, isLoading }: DrawerItemProps) => {
               e.stopPropagation();
             }}
           >
-            <Dialog onOpenChange={() => setHoverState(false)}>
+            <Dialog
+              open={isDialogOpen}
+              onOpenChange={() => {
+                setHoverState(false);
+                (isOpen: boolean) => setIsDialogOpen(isOpen);
+              }}
+            >
               <DialogTrigger asChild>
                 <FaTrashAlt
                   title="Delete chat"
@@ -54,9 +65,10 @@ const DrawerItem = ({ item, isLoading }: DrawerItemProps) => {
                   className={`hover:text-white pr-1 ${
                     hoverState ? "block" : "hidden"
                   }`}
+                  onClick={() => setIsDialogOpen(true)}
                 />
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent onClick={() => setIsDialogOpen(false)}>
                 <DialogHeader>
                   <DialogTitle className="text-start">Delete chat?</DialogTitle>
                   <DialogDescription className="flex gap-1">
@@ -65,7 +77,7 @@ const DrawerItem = ({ item, isLoading }: DrawerItemProps) => {
                   </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="flex gap-2 sm:gap-0">
-                  <DialogClose>
+                  <DialogClose onClick={() => setIsDialogOpen(false)}>
                     <Button variant={"outline"} className="w-full">
                       Cancel
                     </Button>
@@ -73,14 +85,12 @@ const DrawerItem = ({ item, isLoading }: DrawerItemProps) => {
                   <Button
                     variant={"destructive"}
                     className="w-22 "
-                    onClick={(e) => handleIconClick(e, item._id)}
+                    onClick={(e) => handleIconClick(e)}
                   >
-                    Delete
-                    {isLoading && (
-                      <img
-                        src="/loading-icon-white.svg"
-                        className="w-5 h-5 ml-1"
-                      />
+                    {isLoading ? (
+                      <Loader2 className="size-5 animate-spin w-11" />
+                    ) : (
+                      <p className="w-11">Delete</p>
                     )}
                   </Button>
                 </DialogFooter>

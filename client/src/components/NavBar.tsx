@@ -27,7 +27,6 @@ const NavBar = ({
 }: NavBarProps) => {
   const { user } = useCheckAuth();
   const { logout } = useLogoutUser();
-  console.log(user);
 
   return (
     <nav className="h-[48px] bg-main-gray w-full flex justify-between px-4 py-3 transition-all duration-500 fixed ">
@@ -60,7 +59,7 @@ const NavBar = ({
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mr-5 mt-2">
-          <DropdownMenuLabel>{user?.displayName}</DropdownMenuLabel>
+          <DropdownMenuLabel>@{user?.displayName}</DropdownMenuLabel>
           <DropdownMenuItem
             className="flex items-center gap-1"
             onClick={() => {

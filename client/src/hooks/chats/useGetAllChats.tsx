@@ -9,7 +9,7 @@ const useGetAllChats = () => {
     refetch,
     isRefetching,
   } = useQuery<Chat[]>({
-    queryKey: ["Chats"],
+    queryKey: ["chats"],
     queryFn: async () => {
       const response = await fetch("/api/chats/all");
       const data = await response.json();
