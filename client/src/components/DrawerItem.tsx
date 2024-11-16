@@ -18,9 +18,10 @@ import useDeleteChat from "@/hooks/chats/useDeleteChat";
 
 interface DrawerItemProps {
   item: Chat;
+  onClick?: () => void;
 }
 
-const DrawerItem = ({ item }: DrawerItemProps) => {
+const DrawerItem = ({ item, onClick }: DrawerItemProps) => {
   const { chatId } = useParams();
   console.log(chatId);
   const { deleteChat, isPending: isLoading } = useDeleteChat();
@@ -35,7 +36,12 @@ const DrawerItem = ({ item }: DrawerItemProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
-    <Link to={`/${item._id}`} className="block w-full" onClick={() => {}}>
+    <Link
+      to={`/${item._id}`}
+      onClickCapture={onClick}
+      className="block w-full"
+      onClick={() => {}}
+    >
       <div
         className={`hover:bg-main-gray rounded-md py-2 pl-2 cursor-pointer text-drawer-item-text ${
           item._id === chatId ? "bg-main-gray" : ""
