@@ -15,7 +15,7 @@ const MobileDrawer = ({ openDrawer, handleClick }: MobileDrawerProps) => {
       }`}
     >
       <div className="flex justify-between items-center py-3 px-5">
-        <h1 className="w-full text-2xl font-bold">ChatAi.</h1>
+        <h1 className="w-full text-xl font-semibold">ChatAi</h1>
         <div className="flex gap-2">
           <BiEdit
             size={24}

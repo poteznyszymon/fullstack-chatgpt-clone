@@ -1,12 +1,14 @@
 import { useToast } from "@/components/ui/use-toast";
 import { Chat, Message } from "@/lib/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
 const useSendMessage = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const [isPending, setIsPending] = useState(false);
 
-  const { mutate: sendMessage, isPending } = useMutation<
+  const { mutate: sendMessage } = useMutation<
     Message,
     Error,
     { chatId: string; prompt: string },
@@ -22,6 +24,7 @@ const useSendMessage = () => {
       chatId: string;
       prompt: string;
     }) => {
+      setIsPending(true);
       const response = await fetch(`/api/messages/send/${chatId}`, {
         method: "POST",
         headers: {
@@ -75,6 +78,7 @@ const useSendMessage = () => {
         ["messages", chatId],
         (oldMessages = []) => [...oldMessages, botAnswer]
       );
+      setIsPending(false);
     },
     onError: (_error, { chatId }, context) => {
       if (context?.previousMessages) {
@@ -87,6 +91,7 @@ const useSendMessage = () => {
         queryClient.setQueryData(["chats"], context.previousChats);
       }
       toast({ description: "Something went wrong. Please try again" });
+      setIsPending(false);
     },
   });
 

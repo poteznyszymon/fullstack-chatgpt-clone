@@ -2,14 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
 import ChatInput from "@/components/shared/ChatInput";
 import useGetMessages from "@/hooks/messages/useGetMessages";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import useSendMessage from "@/hooks/messages/useSendMessage";
 
 const ChatPage = () => {
+  const hasSentInitialPromptRef = useRef(false);
   const [userInput, setUserInput] = useState("");
   const { chatId } = useParams();
   const { sendMessage, isPending } = useSendMessage();
+
+  const location = useLocation();
+  const { prompt } = location.state || {};
 
   const { messages, isLoading } = useGetMessages(chatId || "");
 
@@ -25,6 +29,13 @@ const ChatPage = () => {
       setUserInput("");
     }
   };
+
+  useEffect(() => {
+    if (prompt && chatId && !hasSentInitialPromptRef.current) {
+      sendMessage({ chatId, prompt });
+      hasSentInitialPromptRef.current = true;
+    }
+  }, [chatId, prompt, sendMessage]);
 
   useEffect(() => {
     scrollToBottom();
@@ -60,7 +71,7 @@ const ChatPage = () => {
           onClick={handleSendMessage}
           userInput={userInput}
           setUserInput={setUserInput}
-          isLoading={isPending}
+          isLoading={isLoading || isPending}
         />
         <p className="text-xs text-footer-gray mb-[3px] h-[20px]">
           ChatAI can make mistakes. Check important info.

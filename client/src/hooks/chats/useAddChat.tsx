@@ -3,7 +3,12 @@ import { Chat } from "@/lib/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
-const useAddChat = () => {
+interface useAddChatOptions {
+  onHomePage?: boolean;
+  prompt?: string;
+}
+
+const useAddChat = (options: useAddChatOptions) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -29,7 +34,13 @@ const useAddChat = () => {
         return [newChat, ...oldChats];
       });
 
-      navigate(`/${newChat._id}`);
+      if (options.onHomePage) {
+        navigate(`/${newChat._id}`, {
+          state: { prompt: options.prompt },
+        });
+      } else {
+        navigate(`/${newChat._id}`);
+      }
     },
     onError: () => {
       toast({ description: "Something went wrong. Please try again" });

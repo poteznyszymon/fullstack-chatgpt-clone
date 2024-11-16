@@ -5,6 +5,9 @@ import { Loader2 } from "lucide-react";
 import useGetAllChats from "@/hooks/chats/useGetAllChats";
 import LoadingButton from "./shared/LoadingButton";
 import useAddChat from "@/hooks/chats/useAddChat";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Chat } from "@/lib/types";
 
 interface DrawerProps {
   handleClick: () => void;
@@ -14,7 +17,20 @@ interface DrawerProps {
 const Drawer = ({ handleClick, showDrawer }: DrawerProps) => {
   const { chats, isFetching, isRefetching, isError, refetch } =
     useGetAllChats();
-  const { addChat, isPending: isAddingChatLoading } = useAddChat();
+  const { addChat, isPending: isAddingChatLoading } = useAddChat({
+    onHomePage: false,
+  });
+  const { chatId } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (chatId && chats?.length) {
+      const chatExists = chats.some((chat: Chat) => chat._id === chatId);
+      if (!chatExists) {
+        navigate("/");
+      }
+    }
+  }, [chatId, chats, navigate]);
 
   return (
     <section
@@ -44,7 +60,7 @@ const Drawer = ({ handleClick, showDrawer }: DrawerProps) => {
             )}
           </div>
         </nav>
-        <div className="flex-1">
+        <div className="flex-1 overflow-y-auto">
           {!isFetching &&
             !isRefetching &&
             chats &&

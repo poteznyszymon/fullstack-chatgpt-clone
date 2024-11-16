@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { MdOutlineLogout } from "react-icons/md";
-import { MdMenu } from "react-icons/md";
 import { FiLayout } from "react-icons/fi";
 
 import {
@@ -13,6 +12,7 @@ import {
 import useCheckAuth from "@/hooks/auth/useCheckAuth";
 import useLogoutUser from "@/hooks/auth/useLogoutUser";
 import { Link } from "react-router-dom";
+import { Menu } from "lucide-react";
 
 interface NavBarProps {
   showDrawerIcon: boolean;
@@ -40,7 +40,7 @@ const NavBar = ({
             <FiLayout className="size-6 hidden lg:block group-hover:text-gray-300" />
           </div>
         )}
-        <MdMenu
+        <Menu
           className="lg:hidden cursor-pointer"
           size={28}
           onClick={handleMobileDrawerCLick}

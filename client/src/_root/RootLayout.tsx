@@ -22,11 +22,7 @@ const RootLayout = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="flex bg-main-gray">
-        <Drawer
-          handleClick={drawerClick}
-          showDrawer={showDrawer}
-          newTitle={newTitle}
-        />
+        <Drawer handleClick={drawerClick} showDrawer={showDrawer} />
         <MobileDrawer
           openDrawer={openMobileDrawer}
           handleClick={mobileDrawerClick}
