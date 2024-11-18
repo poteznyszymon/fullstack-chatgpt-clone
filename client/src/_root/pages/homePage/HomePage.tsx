@@ -1,7 +1,7 @@
 import PromptTile from "@/components/promptTile";
 import ChatInput from "@/components/shared/ChatInput";
 import useAddChat from "@/hooks/chats/useAddChat";
-import { Brain, Gift, GraduationCap } from "lucide-react";
+import { Brain, FileText, Gift, GraduationCap } from "lucide-react";
 import { useState } from "react";
 
 const HomePage = () => {
@@ -22,7 +22,7 @@ const HomePage = () => {
         setUserInput={setInputText}
         isLoading={isPending}
       />
-      <div className="flex items-center justify-center flex-wrap gap-5">
+      <div className="flex items-center justify-center flex-wrap gap-4">
         <PromptTile
           onClick={() => {
             setInputText("Tell a joke");
@@ -38,6 +38,14 @@ const HomePage = () => {
           }}
           icon={<GraduationCap className="size-4 text-cyan-500" />}
           text="Tell advice"
+        />
+        <PromptTile
+          onClick={() => {
+            setInputText("Write essay");
+            addChat();
+          }}
+          icon={<FileText className="size-4 text-green-500" />}
+          text="Write essay"
         />
         <PromptTile
           onClick={() => {
