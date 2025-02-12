@@ -1,4 +1,4 @@
-import aiModel from "../gemini/gemini.js";
+import aiModel from "../ai/gemini.js";
 import { Chat } from "../models/chatSchema.js";
 import { Message } from "../models/messageSchema.js";
 import { User } from "../models/userSchema.js";
