@@ -18,7 +18,7 @@ const ChatInput = ({
     onClick();
   };
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-[750px]">
+    <form onSubmit={handleSubmit} className="w-full max-w-[750px] px-5">
       <div className="bg-menu-gray w-full h-[50px] rounded-3xl flex items-center justify-between px-[10px] mt-[10px]">
         <div className="flex items-center gap-4 flex-1 pr-3">
           <input

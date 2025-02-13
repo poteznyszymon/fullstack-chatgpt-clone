@@ -9,12 +9,11 @@ import messagesRoute from "./routes/messages.route.js";
 import { connectToMongo } from "./mongo/connectToDatabase.js";
 import cookieParser from "cookie-parser";
 
-import { fileURLToPath } from "url"
 import path from "path";
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 const __dirname = path.resolve();
@@ -27,7 +26,6 @@ app.use(cookieParser());
 app.use("/api", authRoute);
 app.use("/api/chats", chatsRoute);
 app.use("/api/messages", messagesRoute);
-
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/dist")));
